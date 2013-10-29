@@ -8,3 +8,4 @@ install:
 	$(INSTALL) -p mod-flasher/{flasher,flash-image} $(DESTDIR)/usr/sbin
 	$(INSTALL) -d $(DESTDIR)/etc/init.d
 	$(INSTALL) -p mod-flasher/initscript $(DESTDIR)/etc/init.d/S60flashcast-flasher
+	git describe --tags --match 'v*' --dirty > $(DESTDIR)/etc/flasher-version
