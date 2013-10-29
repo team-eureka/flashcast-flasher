@@ -92,13 +92,13 @@ else
 		# For backwards compatibility
 		log "Found legacy GTVHacker system image, using"
 		log_cmd flash-image '/usr/share/flasher/gtvhacker-compat' "${IMAGES_DIR}/Chromecast-Rooted-System-GTVHacker-cj_000-July27-635PM.bin"
-	elif test -d "${IMAGES_DIR}/eureka_images" ; then
-		log "Found eureka_images directory, flashing all images inside"
+	elif test -d "${IMAGES_DIR}/flashcast-mods" ; then
+		log "Found flashcast-mods directory, flashing all images inside"
 		if test -f "${IMAGES_DIR}/ignore_errors" ; then
 			log "ignore_errors file is present, ignoring errors"
 			IGNORE_ERRORS=1
 		fi
-		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/eureka_images" "$IGNORE_ERRORS"
+		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
 	fi
