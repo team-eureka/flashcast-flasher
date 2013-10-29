@@ -5,7 +5,7 @@
 
 case "$1" in
   start)
- 	echo "Starting flasher..."
+	echo "Starting flashcast-flasher..."
 
 	/usr/sbin/flasher >/dev/null 2>&1 &
 	;;
