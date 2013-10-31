@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # log
 # Write a status message to the log.
@@ -263,6 +263,11 @@ mktemp() {
 
 # Set up an fd for log messages.
 exec 3>&1
+
+# If we're being sourced, return after defining functions.
+if test "${BASH_SOURCE[0]}" != "$0" ; then
+	return
+fi
 
 # Put the mod in a temp directory.
 _MOD_FILE="${1%/}"
