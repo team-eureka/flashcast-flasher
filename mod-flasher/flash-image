@@ -27,7 +27,7 @@ dry_run() {
 # Parameters:
 #   $1: A string describing the error encountered.
 fatal() {
-	echo "FAILURE in ${_IMAGE_PATH}/imager.sh: ${1}" | tee -a /etc/motd >&3
+	echo "FAILURE in ${_EXTRACTED_PATH}/imager.sh: ${1}" | tee -a /etc/motd >&3
 	exit 1;
 }
 
@@ -204,40 +204,42 @@ end_squashfs_edit() {
 	rm -rf "${_WRAPPER}"
 }
 
+_MOD_FILE="$1"
+
 # Put the mod in a temp directory.
-if test -f "$1" -a "${1%.zip}" != "$1" ; then
-	_IMAGE_PATH="$(mktemp -d)"
-	echo "Extracting ${1} (zip) to ${_IMAGE_PATH}"
+if test -f "$_MOD_FILE" -a "${_MOD_FILE%.zip}" != "$_MOD_FILE" ; then
+	_EXTRACTED_PATH="$(mktemp -d)"
+	echo "Extracting ${_MOD_FILE} (zip) to ${_EXTRACTED_PATH}"
 
-	unzip -d "$_IMAGE_PATH" "$1"
-elif test -f "$1" -a "${1%.tar*}" != "$1" ; then
-	_IMAGE_PATH="$(mktemp -d)"
-	echo "Extracting ${1} (tar) to ${_IMAGE_PATH}"
+	unzip -d "$_EXTRACTED_PATH" "$_MOD_FILE"
+elif test -f "$_MOD_FILE" -a "${_MOD_FILE%.tar*}" != "$_MOD_FILE" ; then
+	_EXTRACTED_PATH="$(mktemp -d)"
+	echo "Extracting ${_MOD_FILE} (tar) to ${_EXTRACTED_PATH}"
 
-	tar -xv -C "$_IMAGE_PATH" -f "$1"
-elif test -d "$1" ; then
-	_IMAGE_PATH="$(mktemp -u)"
-	echo "Copying ${1} to ${_IMAGE_PATH}"
+	tar -xv -C "$_EXTRACTED_PATH" -f "$_MOD_FILE"
+elif test -d "$_MOD_FILE" ; then
+	_EXTRACTED_PATH="$(mktemp -u)"
+	echo "Copying ${_MOD_FILE} to ${_EXTRACTED_PATH}"
 
-	cp -r "$1" "$_IMAGE_PATH"
-	chmod 755 "$_IMAGE_PATH"
+	cp -r "$_MOD_FILE" "$_EXTRACTED_PATH"
+	chmod 755 "$_EXTRACTED_PATH"
 else
-	echo "${1} is not of a recognized mod format"
+	echo "${_MOD_FILE} is not of a recognized mod format"
 	exit 2
 fi
 
 # Make sure to clean up when we're done.
 _ORIG_PWD="$(pwd)"
 _clean_up() {
-	echo "Removing temporary mod directory ${_IMAGE_PATH}"
+	echo "Removing temporary mod directory ${_EXTRACTED_PATH}"
 	cd "$_ORIG_PWD"
-	rm -rf "$_IMAGE_PATH"
+	rm -rf "$_EXTRACTED_PATH"
 }
 
 # Check for and run the imager script.
-echo "Flashing mod at ${_IMAGE_PATH}"
+echo "Flashing mod at ${_EXTRACTED_PATH}"
 trap _clean_up EXIT
-cd "$_IMAGE_PATH"
+cd "$_EXTRACTED_PATH"
 
 if ! test -f './imager.sh' ; then
 	echo "ERROR: $(pwd)/imager.sh does not exist"
