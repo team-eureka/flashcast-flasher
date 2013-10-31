@@ -36,7 +36,7 @@ log "Resetting crash counter and boot mode"
 fts-set crashcounter.android 0
 set-boot-cmd normal
 
-# Clear any downloaded OTAs
+# Clear any downloaded OTAs.
 log "Clearing OTAs"
 log_cmd flash-image '/usr/share/flasher/remove-ota'
 
