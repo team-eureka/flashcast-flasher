@@ -1,3 +1,6 @@
+# Fail immediately if any step fails.
+set -e
+
 # In this sample, boot.img and system.img are empty. In a real mod, they would
 # contain an Android boot image (prepared using cc-mangle-bootimg) and a
 # squashfs root filesystem, respectively.

@@ -1,3 +1,6 @@
+# Fail immediately if any step fails.
+set -e
+
 # FlashCast has helpers which let it unpack and repack a squashfs image on-the
 # fly! If your mod makes simple changes to the rootfs and you don't want to
 # provide a different mod for each firmware version, these helpers are for you.
