@@ -27,7 +27,7 @@ select_log_file() {
 }
 
 # Check hardware version.
-if ! grep -qe '\sandroidboot\.hardware=eureka-b3\s' /proc/cmdline ; then
+if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
 fi
 
