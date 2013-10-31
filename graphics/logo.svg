@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="156.625"
+   height="72.968742"
+   id="svg3019"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs3021" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="117.00341"
+     inkscape:cy="-0.6892639"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1436"
+     inkscape:window-height="857"
+     inkscape:window-x="1440"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3024">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-20.085833,-26.074534)">
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none"
+       d="m 56.742083,26.074534 c -15.155236,0 -34.383407,10.081026 -36.65625,25.812496 0,7.125 0,14.25 0,21.375 2.272843,15.73147 21.501014,25.78125 36.65625,25.78125 15.15523,0 18.84949,-4.61844 31.40625,-10.375 l 67.187497,0 0,-10.8125 21.375,0 c 0,-10.1875 0,-20.375 0,-30.5625 l -21.375,0 0,-10.84375 -67.187497,0 C 75.591573,30.69297 71.897313,26.074534 56.742083,26.074534 z"
+       id="path3060"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sccsccccccccs" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       x="30.369888"
+       y="71.145859"
+       id="text4957"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4959"
+         x="30.369888"
+         y="71.145859"
+         dx="0 0 0 0 0 0"
+         style="font-size:28px;font-weight:normal;fill:#ffffff;fill-opacity:1;-inkscape-font-specification:Open Sans"><tspan
+           style="font-size:28px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:Open Sans;-inkscape-font-specification:Open Sans Semi-Bold"
+           id="tspan4961">flash</tspan><tspan
+           style="font-size:28px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;font-family:Open Sans;-inkscape-font-specification:Open Sans Light"
+           id="tspan2990">Cast</tspan></tspan></text>
+  </g>
+</svg>

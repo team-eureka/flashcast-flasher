@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="720"
+   height="480"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="splash.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3773">
+      <stop
+         style="stop-color:#323232;stop-opacity:1;"
+         offset="0"
+         id="stop3775" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3777" />
+    </linearGradient>
+    <filter
+       id="filter3787"
+       inkscape:label="Glow"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Glow of object's own color at the edges"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3789"
+         stdDeviation="3.5"
+         result="result91" />
+      <feComposite
+         id="feComposite3791"
+         in2="result91"
+         in="SourceGraphic"
+         operator="over" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#000000"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="308.81036"
+     inkscape:cy="232.72069"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="false"
+     inkscape:bbox-nodes="false"
+     inkscape:snap-bbox-edge-midpoints="false"
+     inkscape:snap-bbox-midpoints="false"
+     inkscape:snap-to-guides="true"
+     inkscape:object-paths="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1436"
+     inkscape:window-height="857"
+     inkscape:window-x="1440"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0"
+     inkscape:snap-nodes="true"
+     inkscape:snap-page="true" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-572.36218)">
+    <rect
+       style="fill:#49171a;fill-opacity:1;stroke:none"
+       id="rect3771"
+       width="720"
+       height="480"
+       x="0"
+       y="0"
+       transform="translate(0,572.36218)" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="354.56354"
+       y="57.756233"
+       id="text2988"
+       sodipodi:linespacing="125%"
+       transform="translate(0,572.36218)"><tspan
+         sodipodi:role="line"
+         id="tspan2990" /></text>
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       d="m 117.69448,606.36218 c -25.868089,0 -58.683038,17.21085 -62.562497,44.0625 l 0,36.46875 c 3.879459,26.85165 36.694408,44.03125 62.562497,44.03125 25.86809,0 32.19218,-7.89302 53.625,-17.71875 l 114.65625,0 0,-18.46875 36.5,0 0,-52.15625 -36.5,0 0,-18.5 -114.65625,0 c -21.43282,-9.82573 -27.75691,-17.71875 -53.625,-17.71875 z m -31.249997,40.375 c 1.929108,4e-5 3.851838,0.29968 5.71875,0.9375 l -1.46875,4.15625 c -1.353515,-0.43558 -2.645977,-0.65622 -3.875,-0.65625 -1.244609,3e-5 -2.143136,0.40966 -2.71875,1.1875 -0.560079,0.76235 -0.843761,1.89734 -0.84375,3.4375 l 0,1.6875 6.3125,0 0,4.15625 -6.3125,0 0,21.65625 -5.5,0 0,-21.65625 -4.25,0 0,-2.5625 4.25,-1.6875 0,-1.6875 c -5e-6,-3.04923 0.693709,-5.28757 2.125,-6.75 1.431277,-1.47792 3.622131,-2.21871 6.5625,-2.21875 z m 7.5,0.25 5.468747,0 0,36.3125 -5.468747,0 0,-36.3125 z m 64.343747,0 5.46875,0 0,9.21875 c -1e-5,1.47798 -0.0946,3.03857 -0.28125,4.71875 l 0.375,0 c 0.74675,-1.24457 1.77136,-2.19045 3.09375,-2.875 1.33793,-0.6845 2.88268,-1.03122 4.65625,-1.03125 6.25407,3e-5 9.37497,3.13676 9.375,9.4375 l 0,16.84375 -5.5,0 0,-15.875 c -2e-5,-1.99134 -0.40978,-3.48861 -1.21875,-4.46875 -0.79345,-0.9801 -2.03883,-1.46873 -3.78125,-1.46875 -2.30252,2e-5 -4.00474,0.70916 -5.09375,2.09375 -1.07347,1.36907 -1.62501,3.67032 -1.625,6.90625 l 0,12.8125 -5.46875,0 0,-36.3125 z m 45.65625,1.6875 c 3.32927,4e-5 6.30826,0.63044 8.9375,1.875 l -0.9375,2.15625 c -2.48922,-1.24456 -5.10566,-1.87497 -7.84375,-1.875 -4.27831,3e-5 -7.66693,1.35567 -10.125,4.09375 -2.45808,2.73814 -3.68751,6.48944 -3.6875,11.25 -1e-5,4.8695 1.18193,8.65232 3.5,11.34375 2.31805,2.69144 5.62807,4.0625 9.9375,4.0625 2.86255,0 5.47913,-0.3938 7.875,-1.125 l 0,2.125 c -2.25586,0.79343 -5.06155,1.1875 -8.4375,1.1875 -4.79171,0 -8.55884,-1.56032 -11.3125,-4.65625 -2.75367,-3.09593 -4.15625,-7.41473 -4.15625,-12.96875 0,-3.46929 0.66192,-6.54271 1.96875,-9.1875 1.32238,-2.64474 3.22941,-4.66243 5.6875,-6.09375 2.47362,-1.44681 5.32667,-2.18746 8.59375,-2.1875 z m 63.5625,3.125 1.1875,0 0,6.125 7.4375,0 0,2 -7.4375,0 0,16.0625 c -10e-6,1.94469 0.34672,3.37906 1.03125,4.3125 0.68452,0.93345 1.75634,1.40625 3.21875,1.40625 1.46239,0 2.72346,-0.12608 3.8125,-0.375 l 0,1.875 c -1.12015,0.37338 -2.41261,0.5625 -3.875,0.5625 -2.24028,0 -3.89529,-0.61458 -4.96875,-1.8125 -1.05791,-1.19792 -1.59375,-3.05802 -1.59375,-5.625 l 0,-16.40625 -3.75,0 0,-1.34375 3.75,-1.0625 1.1875,-5.71875 z m -150.0625,5.21875 c 3.28261,3e-5 5.74158,0.72499 7.40625,2.15625 1.68018,1.43131 2.53123,3.65395 2.53125,6.71875 l 0,17.40625 -3.90625,0 -1.09375,-3.59375 -0.1875,0 c -1.24461,1.57131 -2.52111,2.64313 -3.78125,3.21875 -1.26017,0.56007 -2.86797,0.84375 -4.84375,0.84375 -2.53587,0 -4.50622,-0.69344 -5.9375,-2.0625 -1.41573,-1.36905 -2.125,-3.30774 -2.125,-5.8125 0,-2.66031 0.9617,-4.67774 2.9375,-6.03125 1.97579,-1.35348 4.9863,-2.09427 9.03125,-2.21875 l 4.46875,-0.125 0,-1.375 c -2e-5,-1.64907 -0.3784,-2.87849 -1.15625,-3.6875 -0.76233,-0.82452 -1.94454,-1.24998 -3.5625,-1.25 -1.3224,2e-5 -2.59903,0.20484 -3.8125,0.59375 -1.21349,0.38896 -2.37987,0.84607 -3.5,1.375 l -1.78125,-3.90625 c 1.40017,-0.73118 2.9291,-1.28285 4.59375,-1.65625 1.66464,-0.38891 3.24078,-0.59372 4.71875,-0.59375 z m 25.90625,0 c 3.03369,3e-5 5.88674,0.61474 8.59375,1.84375 l -1.75,4.125 c -2.7848,-1.15123 -5.13325,-1.71873 -7.03125,-1.71875 -2.8937,2e-5 -4.34376,0.81968 -4.34375,2.46875 -1e-5,0.80901 0.37823,1.50245 1.125,2.0625 0.76231,0.56009 2.40162,1.3324 4.9375,2.3125 2.13136,0.82456 3.69167,1.56549 4.65625,2.25 0.96454,0.68454 1.65826,1.47268 2.125,2.375 0.4667,0.88678 0.71873,1.97416 0.71875,3.21875 -2e-5,2.52031 -0.91424,4.459 -2.75,5.8125 -1.8358,1.33794 -4.48362,2 -7.90625,2 -3.4382,0 -6.19656,-0.52015 -8.28125,-1.5625 l 0,-4.75 c 3.0337,1.40018 5.85509,2.09375 8.46875,2.09375 3.37595,0 5.06248,-1.02447 5.0625,-3.0625 -2e-5,-0.65341 -0.18914,-1.18938 -0.5625,-1.625 -0.37339,-0.4356 -0.9881,-0.87702 -1.84375,-1.34375 -0.85567,-0.46671 -2.03788,-1.00256 -3.5625,-1.59375 -2.97148,-1.15124 -4.97335,-2.28623 -6.03125,-3.4375 -1.04235,-1.15124 -1.5625,-2.6642 -1.5625,-4.5 0,-2.20914 0.8827,-3.91149 2.65625,-5.125 1.7891,-1.22901 4.21642,-1.84372 7.28125,-1.84375 z m 108,0.40625 c 2.7381,3e-5 5.32316,0.53573 7.78125,1.5625 l -0.84375,2.09375 c -2.48921,-1.02677 -4.80614,-1.53123 -6.9375,-1.53125 -2.06915,2e-5 -3.72403,0.3155 -4.9375,1 -1.21349,0.68455 -1.8125,1.66154 -1.8125,2.875 0,1.3224 0.4728,2.36284 1.40625,3.15625 0.949,0.79345 2.79313,1.67615 5.53125,2.65625 2.28693,0.82456 3.95763,1.58104 5,2.25 1.04233,0.65342 1.79909,1.40991 2.3125,2.25 0.52893,0.84011 0.81248,1.80181 0.8125,2.9375 -2e-5,2.27139 -0.86689,4.02096 -2.59375,5.25 -1.72689,1.21348 -4.17004,1.84375 -7.34375,1.84375 -3.39153,0 -6.1024,-0.52015 -8.09375,-1.5625 l 0,-2.5 c 2.55142,1.27571 5.26229,1.90625 8.09375,1.90625 2.50474,0 4.39622,-0.42545 5.6875,-1.25 1.30681,-0.8401 1.96873,-1.92788 1.96875,-3.3125 -2e-5,-1.2757 -0.52017,-2.34752 -1.5625,-3.21875 -1.02681,-0.87121 -2.72903,-1.75364 -5.09375,-2.59375 -2.53587,-0.91788 -4.31696,-1.69032 -5.34375,-2.34375 -1.0268,-0.66895 -1.8148,-1.42544 -2.34375,-2.25 -0.5134,-0.84008 -0.78125,-1.83331 -0.78125,-3.03125 0,-1.89799 0.81939,-3.42665 2.40625,-4.53125 1.60241,-1.10455 3.82492,-1.65622 6.6875,-1.65625 z m -23.9375,0.0625 c 2.78477,3e-5 4.88093,0.70943 6.25,2.15625 1.38459,1.44687 2.06248,3.71645 2.0625,6.78125 l 0,16.875 -1.6875,0 -0.59375,-4.03125 -0.1875,0 c -1.27573,1.63354 -2.58402,2.81547 -3.9375,3.5 -1.33795,0.66897 -2.91423,1 -4.75,1 -2.4892,0 -4.42789,-0.66179 -5.8125,-1.9375 -1.38462,-1.27571 -2.09375,-3.02541 -2.09375,-5.28125 0,-2.47363 1.04016,-4.38093 3.09375,-5.75 2.06913,-1.36904 5.06382,-2.1097 8.96875,-2.1875 l 4.8125,-0.125 0,-1.6875 c -2e-5,-2.41139 -0.48865,-4.23969 -1.46875,-5.46875 -0.98014,-1.22902 -2.57197,-1.84373 -4.75,-1.84375 -2.34919,2e-5 -4.76095,0.66195 -7.28125,1.96875 l -0.875,-2 c 2.78478,-1.3068 5.52744,-1.96872 8.25,-1.96875 z m 6.03125,12.90625 -4.4375,0.1875 c -3.56267,0.17115 -6.10038,0.73851 -7.625,1.6875 -1.50908,0.93346 -2.25,2.38366 -2.25,4.375 0,1.58687 0.47293,2.83198 1.4375,3.71875 0.98011,0.87122 2.35144,1.3125 4.125,1.3125 2.70698,0 4.85049,-0.77231 6.40625,-2.3125 1.57128,-1.55574 2.34373,-3.71507 2.34375,-6.46875 l 0,-2.5 z m -111.53125,0.59375 -3.3125,0.125 c -2.58255,0.0934 -4.47389,0.53464 -5.65625,1.3125 -1.16682,0.76233 -1.75001,1.9444 -1.75,3.53125 -1e-5,1.15126 0.34671,2.0184 1.03125,2.65625 0.68452,0.6223 1.69343,0.9375 3.0625,0.9375 1.99134,0 3.58331,-0.55167 4.78125,-1.65625 1.21346,-1.12013 1.84373,-2.68058 1.84375,-4.6875 l 0,-2.21875 z"
+       id="path3060-4"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3787);font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       x="348.20386"
+       y="692.49585"
+       id="text3760"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3762"
+         x="348.20386"
+         y="692.49585">Welcome!</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans"
+       x="78.571426"
+       y="210"
+       id="text4031"
+       sodipodi:linespacing="125%"
+       transform="translate(0,572.36218)"><tspan
+         sodipodi:role="line"
+         id="tspan4033" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       x="75.775391"
+       y="771.10693"
+       id="text4035"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4037"
+         x="75.775391"
+         y="771.10693">Please look at the LED on your Chromecast.</tspan></text>
+    <rect
+       style="opacity:0.19341562;fill:#ffffff;fill-opacity:1;stroke:none"
+       id="rect4107"
+       width="272.70575"
+       height="141.8542"
+       x="78.194031"
+       y="784.45532" />
+    <rect
+       style="opacity:0.17283953;fill:#ff0000;fill-opacity:1;stroke:none"
+       id="rect4107-0"
+       width="272.70575"
+       height="141.8542"
+       x="369.10022"
+       y="784.45532" />
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans Bold"
+       x="155.56741"
+       y="813.01025"
+       id="text4137"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4139"
+         x="155.56741"
+         y="813.01025">If it's white,</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans Bold"
+       x="458.11423"
+       y="813.01025"
+       id="text4137-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4139-1"
+         x="458.11423"
+         y="813.01025">If it's red,</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4175"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:justify;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       transform="translate(0.44729614,572.36218)"><flowRegion
+         id="flowRegion4177"><rect
+           id="rect4179"
+           width="257.5889"
+           height="172.73608"
+           x="84.852814"
+           y="255.74614"
+           style="font-size:18px;text-align:justify;text-anchor:start;fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara4181">FlashCast is in the process of flashing your device. When it is done, your Chromecast will automatically restart.</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4175-9"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:justify;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       transform="translate(291.35349,572.36218)"><flowRegion
+         id="flowRegion4177-2"><rect
+           id="rect4179-8"
+           width="257.5889"
+           height="172.73608"
+           x="84.852814"
+           y="255.74614"
+           style="font-size:18px;text-align:justify;text-anchor:start;fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara4181-7">FlashCast was unable to flash your device. You may unplug the device, or you may SSH in using the credentials below.</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       x="76.707031"
+       y="953.46875"
+       id="text4210"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4212"
+         x="76.707031"
+         y="953.46875">Hostname: flashcast</tspan><tspan
+         sodipodi:role="line"
+         x="76.707031"
+         y="980.96875"
+         id="tspan4214">Username: root</tspan><tspan
+         sodipodi:role="line"
+         x="76.707031"
+         y="1008.4688"
+         id="tspan4216">Password: letmein</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Open Sans;-inkscape-font-specification:Open Sans"
+       x="641.94922"
+       y="953.46875"
+       id="text4210-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="641.94922"
+         y="953.46875"
+         id="tspan4216-8">Network name: FlashCast</tspan><tspan
+         sodipodi:role="line"
+         x="641.94922"
+         y="980.96875"
+         id="tspan4272">Or the network you have set</tspan><tspan
+         sodipodi:role="line"
+         x="641.94922"
+         y="1008.4688"
+         id="tspan4274">your Chromecast to use</tspan></text>
+  </g>
+</svg>
