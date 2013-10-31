@@ -19,8 +19,7 @@ fatal() {
 
 select_images_device() {
 	CMDLINE_BOOT_MODE="$(sed -re 's/.*\bandroidboot\.mode=(\w+)\b.*/\1/' /proc/cmdline)"
-	FTS_BOOT_MODE="$(fts-get bootloader.command)"
-	FTS_BOOT_MODE="$(echo "$FTS_BOOT_MODE" | sed -e 's/^boot-//')"
+	FTS_BOOT_MODE="$(fts-get bootloader.command | sed -e 's/^boot-//')"
 	if test -z "$FTS_BOOT_MODE" ; then
 		FTS_BOOT_MODE='normal'
 	fi
