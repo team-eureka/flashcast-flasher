@@ -204,7 +204,7 @@ end_squashfs_edit() {
 	rm -rf "${_WRAPPER}"
 }
 
-_MOD_FILE="$1"
+_MOD_FILE="${1%/}"
 
 # Put the mod in a temp directory.
 if test -f "$_MOD_FILE" -a "${_MOD_FILE%.zip}" != "$_MOD_FILE" ; then
@@ -226,6 +226,12 @@ elif test -d "$_MOD_FILE" ; then
 else
 	echo "${_MOD_FILE} is not of a recognized mod format"
 	exit 2
+fi
+
+# Check for a mod options file and copy if needed.
+_MOD_OPTIONS_PATH="${_MOD_FILE}.options"
+if test -f "$_MOD_OPTIONS_PATH" ; then
+	cp "$_MOD_OPTIONS_PATH" "${_EXTRACTED_PATH}/mod-options"
 fi
 
 # Make sure to clean up when we're done.
