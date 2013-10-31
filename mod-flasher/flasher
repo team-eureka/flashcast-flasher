@@ -123,7 +123,7 @@ else
 			IGNORE_ERRORS=1
 		fi
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
-	elif test "$FTS_BOOT_MODE" = "recovery" && test "$IMAGES_DEVICE" = "/dev/mtdblock4" ; then
+	elif test "$FTS_BOOT_MODE" = "recovery" && test "$IMAGES_DEVICE" = "/dev/mtdblock4" && ! test -f "${IMAGES_DIR}/no_reboot" ; then
 		# We do this so factory resets work, otherwise we sit in recovery.
 		log "No images found on ${IMAGES_DEVICE}, assuming factory reset"
 		log_cmd flash-image '/usr/share/flasher/factory-reset'
