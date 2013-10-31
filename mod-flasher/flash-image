@@ -223,7 +223,7 @@ elif test -d "$1" ; then
 	chmod 755 "$_IMAGE_PATH"
 else
 	echo "${1} is not of a recognized mod format"
-	exit 0
+	exit 2
 fi
 
 # Make sure to clean up when we're done.

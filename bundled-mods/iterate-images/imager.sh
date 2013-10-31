@@ -5,7 +5,9 @@ fi
 IGNORE_ERRORS="$2"
 
 for IMAGE_PATH in "$1"/* ; do
-	if ! flash-image "$IMAGE_PATH" ; then
+	flash-image "$IMAGE_PATH"
+	# Check for imager.sh failure.
+	if test "$?" -eq 1 ; then
 		if test -n "$IGNORE_ERRORS" ; then
 			log "${IMAGE_PATH} failed to flash, ignoring error"
 		else
