@@ -1,7 +1,6 @@
 #!/bin/sh
 set -o pipefail
 
-IMAGES_DEVICE='/dev/sda1'
 LOG_FILES='/root/flashcast.log'
 
 log_cmd() {
@@ -18,6 +17,23 @@ fatal() {
 	exit 1
 }
 
+select_images_device() {
+	CMDLINE_BOOT_MODE="$(sed -re 's/.*\bandroidboot\.mode=(\w+)\b.*/\1/' /proc/cmdline)"
+	FTS_BOOT_MODE="$(fts-get bootloader.command)"
+	FTS_BOOT_MODE="$(echo "$FTS_BOOT_MODE" | sed -e 's/^boot-//')"
+	if test -z "$FTS_BOOT_MODE" ; then
+		FTS_BOOT_MODE='normal'
+	fi
+
+	# When the boot mode passed on the command line is the same as the FTS
+	# bootloader command, we must be booting from an MTD partition.
+	if test "$CMDLINE_BOOT_MODE" = "$FTS_BOOT_MODE" ; then
+		echo '/dev/mtdblock4'
+	else
+		echo '/dev/sda1'
+	fi
+}
+
 select_log_file() {
 	I=1
 	while test -f "$1/flashcast-${I}.log" ; do
@@ -30,6 +46,10 @@ select_log_file() {
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
 fi
+
+# Figure out where to look for mods before we reset the boot command.
+IMAGES_DEVICE="$(select_images_device)"
+log "Looking for mods on ${IMAGES_DEVICE}"
 
 # Make the bootloader happy.
 log "Resetting crash counter and boot mode"
