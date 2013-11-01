@@ -34,14 +34,16 @@ select_images_device() {
 }
 
 select_log_file() {
-	I=1
-	if ! test -d "$1/flashcast-logs" ; then
-		mkdir "$1/flashcast-logs"
+	# Create the log directory if it doesn't exist.
+	if ! test -d "$1" ; then
+		mkdir -p "$1"
 	fi
-	while test -f "$1/flashcast-logs/flashcast-${I}.log" ; do
+
+	I=1
+	while test -f "${1}/flashcast-${I}.log" ; do
 		I="$((I+1))"
 	done
-	echo "$1/flashcast-logs/flashcast-${I}.log"
+	echo "$1/flashcast-${I}.log"
 }
 
 has_recovery_param() {
@@ -104,7 +106,7 @@ else
 
 	# Set up logging to the device.
 	if test -w "$IMAGES_DIR" ; then
-		EXTERNAL_LOG="$(select_log_file "$IMAGES_DIR")"
+		EXTERNAL_LOG="$(select_log_file "${IMAGES_DIR}/flashcast-logs")"
 		cp '/root/flashcast.log' "$EXTERNAL_LOG"
 		LOG_FILES="$LOG_FILES $EXTERNAL_LOG"
 		log "Opened log file ${EXTERNAL_LOG}"
