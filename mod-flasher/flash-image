@@ -231,7 +231,7 @@ fi
 # Check for a mod options file and copy if needed.
 _MOD_OPTIONS_PATH="${_MOD_FILE}.options"
 if test -f "$_MOD_OPTIONS_PATH" ; then
-	cp "$_MOD_OPTIONS_PATH" "${_EXTRACTED_PATH}/mod-options"
+	cp "$_MOD_OPTIONS_PATH" "${_EXTRACTED_PATH}/mod_options"
 fi
 
 # Make sure to clean up when we're done.
