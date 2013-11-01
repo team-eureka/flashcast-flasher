@@ -131,6 +131,7 @@ else
 	# Check for images.
 	if test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
 		log "Factory reset requested, performing"
+		fts-set bootloader.recovery ''
 		log_cmd flash-image '/usr/share/flasher/factory-reset'
 	elif test -f "${IMAGES_DIR}/eureka_image.zip" ; then
 		log "Found eureka_image.zip, using"
