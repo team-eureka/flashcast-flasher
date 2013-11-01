@@ -41,6 +41,10 @@ select_log_file() {
 	echo "$1/flashcast-${I}.log"
 }
 
+has_recovery_param() {
+	fts-get bootloader.recovery | tail -n '+2' | grep -qe "^${1}\$"
+}
+
 # Check hardware version.
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
@@ -106,7 +110,10 @@ else
 	fi
 
 	# Check for images.
-	if test -f "${IMAGES_DIR}/eureka_image.zip" ; then
+	if has_recovery_param '--wipe_data' ; then
+		log "Factory reset requested, performing"
+		log_cmd flash-image '/usr/share/flasher/factory-reset'
+	elif test -f "${IMAGES_DIR}/eureka_image.zip" ; then
 		log "Found eureka_image.zip, using"
 		log_cmd flash-image "${IMAGES_DIR}/eureka_image.zip"
 	elif test -d "${IMAGES_DIR}/eureka_image" ; then
