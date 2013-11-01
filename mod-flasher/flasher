@@ -35,10 +35,13 @@ select_images_device() {
 
 select_log_file() {
 	I=1
-	while test -f "$1/flashcast-${I}.log" ; do
+	if ! test -d "$1/flashcast-logs" ; then
+		mkdir "$1/flashcast-logs"
+	fi
+	while test -f "$1/flashcast-logs/flashcast-${I}.log" ; do
 		I="$((I+1))"
 	done
-	echo "$1/flashcast-${I}.log"
+	echo "$1/flashcast-logs/flashcast-${I}.log"
 }
 
 has_recovery_param() {
