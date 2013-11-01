@@ -17,7 +17,7 @@ fatal() {
 	exit 1
 }
 
-select_images_device() {
+get_boot_mode() {
 	CMDLINE_BOOT_MODE="$(sed -re 's/.*\bandroidboot\.mode=(\w+)\b.*/\1/' /proc/cmdline)"
 	FTS_BOOT_MODE="$(fts-get bootloader.command | sed -e 's/^boot-//')"
 	if test -z "$FTS_BOOT_MODE" ; then
@@ -27,9 +27,9 @@ select_images_device() {
 	# When the boot mode passed on the command line is the same as the FTS
 	# bootloader command, we must be booting from an MTD partition.
 	if test "$CMDLINE_BOOT_MODE" = "$FTS_BOOT_MODE" ; then
-		echo '/dev/mtdblock4'
+		echo "$CMDLINE_BOOT_MODE"
 	else
-		echo '/dev/sda1'
+		echo 'usb'
 	fi
 }
 
@@ -56,7 +56,12 @@ if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 fi
 
 # Figure out where to look for mods before we reset the boot command.
-IMAGES_DEVICE="$(select_images_device)"
+BOOT_MODE="$(get_boot_mode)"
+if test "$BOOT_MODE" = 'usb' ; then
+	IMAGES_DEVICE='/dev/sda1'
+else
+	IMAGES_DEVICE='/dev/mtdblock4'
+fi
 log "Looking for mods on ${IMAGES_DEVICE}"
 
 # Make the bootloader happy.
@@ -115,7 +120,7 @@ else
 	fi
 
 	# Check for images.
-	if has_recovery_param '--wipe_data' ; then
+	if test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
 		log "Factory reset requested, performing"
 		log_cmd flash-image '/usr/share/flasher/factory-reset'
 	elif test -f "${IMAGES_DIR}/eureka_image.zip" ; then
