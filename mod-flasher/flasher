@@ -2,6 +2,7 @@
 set -o pipefail
 
 LOG_FILES='/root/flashcast.log'
+FTS_BOOT_MODE="$(fts-get bootloader.command | sed -e 's/^boot-//')"
 
 log_cmd() {
 	"$@" 2>&1 | tee -a $LOG_FILES
@@ -19,7 +20,6 @@ fatal() {
 
 select_images_device() {
 	CMDLINE_BOOT_MODE="$(sed -re 's/.*\bandroidboot\.mode=(\w+)\b.*/\1/' /proc/cmdline)"
-	FTS_BOOT_MODE="$(fts-get bootloader.command | sed -e 's/^boot-//')"
 	if test -z "$FTS_BOOT_MODE" ; then
 		FTS_BOOT_MODE='normal'
 	fi
@@ -130,6 +130,11 @@ else
 			IGNORE_ERRORS=1
 		fi
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
+	elif test "$FTS_BOOT_MODE" = "recovery" && test "$IMAGES_DEVICE" = "/dev/mtdblock4" && ! test -f "${IMAGES_DIR}/no_reboot" ; then
+		# We do this so factory resets work, otherwise we sit in recovery.
+		log "No images found on ${IMAGES_DEVICE}, assuming factory reset"
+		log_cmd flash-image '/usr/share/flasher/factory-reset'
+		
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
 	fi
