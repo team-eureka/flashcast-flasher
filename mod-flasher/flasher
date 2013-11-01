@@ -46,14 +46,23 @@ select_log_file() {
 	echo "$1/flashcast-${I}.log"
 }
 
-has_recovery_param() {
-	fts-get bootloader.recovery | tail -n '+2' | grep -qe "^${1}\$"
-}
-
 # Check hardware version.
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
 fi
+
+# Make sure to reset the recovery parameters.
+log "Reading recovery parameters"
+RECOVERY_PARAMS="$(fts-get bootloader.recovery)"
+if test -n "$RECOVERY_PARAMS" ; then
+	log "Resetting recovery parameters"
+	fts-set bootloader.recovery ''
+fi
+
+# Only define this after RECOVERY_PARAMS has been read.
+has_recovery_param() {
+	echo "$RECOVERY_PARAMS" | tail -n '+2' | grep -qe "^${1}\$"
+}
 
 # Figure out where to look for mods before we reset the boot command.
 BOOT_MODE="$(get_boot_mode)"
