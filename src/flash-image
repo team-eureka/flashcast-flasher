@@ -31,6 +31,26 @@ fatal() {
 	exit 1;
 }
 
+# is_at_least_version
+# Compares the provided version string to the current FlashCast version.
+#
+# Parameters:
+#   $1: The version string to check against.
+# Returns: 0 if the given version is less than or equal to the current version,
+# 1 otherwise.
+is_at_least_version() {
+	test "$(vercmp "$(cat /etc/flasher-version)" "$1")" -ne -1
+}
+
+# require_version
+# Just like is_at_least_version, except fatal is called automatically on
+# failure.
+require_version() {
+	if ! is_at_least_version "$1" ; then
+		fatal "This version of FlashCast ($(cat /etc/flasher-version)) is too old. Please update to at least version ${1}."
+	fi
+}
+
 # mtd_lookup
 # Converts an MTD partition name into a device name of the form "mtdX".
 #
