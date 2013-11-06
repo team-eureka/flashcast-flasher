@@ -26,4 +26,6 @@ Users interact with FlashCast by copying files to and from a FAT partition which
 occupies most of the USB drive. This partition is called the "user partition"
 and contains your mod as well as several flag files (see `flags.md`). When
 FlashCast boots up, it checks the user partition for a file named
-`eureka_image.zip`, and installs a mod from it if it is present.
+`eureka_image.zip`, and installs a mod from it if it is present. Alternatively,
+several mods can be flashed at once using the `flashcast-mods` directory. See
+`multimod.md` for more informarion.

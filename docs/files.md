@@ -6,11 +6,11 @@ The root directory
 
 The "root directory" of a mod is the single directory which contains all the
 mod's data files and imager scripts. When you distribute your mod, you will pack
-the contents of this directory into a `eureka_image.zip` file. However, during
-development, you may simply place the uncompressed directory on FlashCast's
-user partition with the name `eureka_image`. Note, however, that If a
-`eureka_image.zip` file is present, it will be used instead of any `eureka_image`
-directory which may also be present.
+the contents of this directory into a `.zip` file. During development, however,
+you may simply place the uncompressed directory on FlashCast's user partition
+with the name `eureka_image` or inside `flashcast-mods` with any name. Note
+that if a `eureka_image.zip` file is present, it will be used instead of any
+`eureka_image` directory which may also be present.
 
 Data files
 ----------
@@ -31,9 +31,8 @@ the root directory and be named `imager.sh`.
 
 When your mod is installed, `imager.sh` is executed by `bash` in a shell
 environment which has the FlashCast helper functions pre-defined (see
-`helpers.md`). If the filesystem FlashCast is using supports the execute
-bit, `imager.sh` must be marked as executable or else your mod will fail to
-install.
+`helpers.md`). Since FlashCast v1.1, `imager.sh` no longer needs to be marked
+executable.
 
 `imager.sh` is executed from your mod's root directory. To reference a data
 file, simply use its relative path from your root directory. If you wish, you
