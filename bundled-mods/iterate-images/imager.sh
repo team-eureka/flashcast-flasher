@@ -5,6 +5,11 @@ fi
 IGNORE_ERRORS="$2"
 
 for IMAGE_PATH in "$1"/* ; do
+	# Skip option files.
+	if test "${IMAGE_PATH%.options}" != "$IMAGE_PATH" ; then
+		continue
+	fi
+
 	flash-image "$IMAGE_PATH"
 	# Check for imager.sh failure.
 	if test "$?" -eq 1 ; then
