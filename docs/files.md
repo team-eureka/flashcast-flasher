@@ -41,3 +41,10 @@ may also bundle other scripts with your mod and source them from `imager.sh`.
 (If you don't use source, you will lose access to the helper functions.)
 However, most mods are simple enough to only require `imager.sh` and any
 associated data files.
+
+The mod options file
+--------------------
+
+When your mod is flashed, the user can give it a file containing runtime
+options. If present, this file will be named `mod_options` and contained
+in the mod's root directory. See `options.md` for more information.
