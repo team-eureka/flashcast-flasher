@@ -18,6 +18,8 @@ Bundled Mods
 There are also a set of mods which ship with FlashCast and are called by
 `flasher` to perform various tasks. These are stored in `bundled-mods`:
 
+- `factory-reset`: When FlashCast is used as a recovery, this mod is run to
+    perform a factory reset if requested by the stock OS.
 - `gtvhacker-compat`: This mod is run when a legacy GTVHacker-named image is
     detected. It simply writes the file passed to it to the `rootfs` MTD
     partition.
