@@ -42,6 +42,16 @@ is_at_least_version() {
 	test "$(vercmp "$(cat /etc/flasher-version)" "$1")" -ne -1
 }
 
+# has_mod_option
+# Checks for a flag in the mod_options file.
+#
+# Parameters:
+#   $1: The flag to check for.
+# Returns: 0 if the flag is present, 1 otherwise.
+has_mod_option() {
+	grep -qe "^${1}\$" "${_EXTRACTED_PATH}/mod_options"
+}
+
 # require_version
 # Just like is_at_least_version, except fatal is called automatically on
 # failure.
