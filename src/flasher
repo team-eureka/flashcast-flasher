@@ -33,17 +33,17 @@ get_boot_mode() {
 	fi
 }
 
-select_log_file() {
-	# Create the log directory if it doesn't exist.
+select_sequential_dir() {
+	# Create the containing directory if it doesn't exist.
 	if ! test -d "$1" ; then
 		mkdir -p "$1"
 	fi
 
 	I=1
-	while test -f "${1}/flashcast-${I}.log" ; do
+	while test -d "${1}/${I}" ; do
 		I="$((I+1))"
 	done
-	echo "$1/flashcast-${I}.log"
+	echo "${1}/${I}"
 }
 
 # Check hardware version.
@@ -118,14 +118,19 @@ if test -f "${IMAGES_DIR}/init_partitions" ; then
 else
 	trap unmount_images EXIT
 
-	# Set up logging to the device.
 	if test -w "$IMAGES_DIR" ; then
-		EXTERNAL_LOG="$(select_log_file "${IMAGES_DIR}/flashcast-logs")"
+		# Set up the runtime directory.
+		RUNTIME_DIR="$(select_sequential_dir "${IMAGES_DIR}/flashcast-data")"
+		mkdir "$RUNTIME_DIR"
+		log "Using runtime directory ${RUNTIME_DIR}"
+
+		# Set up logging to the device.
+		EXTERNAL_LOG="${RUNTIME_DIR}/log.txt"
 		cp '/root/flashcast.log' "$EXTERNAL_LOG"
 		LOG_FILES="$LOG_FILES $EXTERNAL_LOG"
 		log "Opened log file ${EXTERNAL_LOG}"
 	else
-		log "${IMAGES_DIR} is not writable, not logging"
+		log "${IMAGES_DIR} is not writable, not using a runtime directory"
 	fi
 
 	# Check for images.
