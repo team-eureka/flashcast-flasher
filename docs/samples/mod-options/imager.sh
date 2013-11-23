@@ -1,6 +1,9 @@
 # Fail immediately if any step fails.
 set -e
 
+# Mod options are only available in FlashCast v1.1 and newer.
+require_version '1.1'
+
 # Print the contents of the mod_options file.
 cat mod_options
 

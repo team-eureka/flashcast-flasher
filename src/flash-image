@@ -49,7 +49,11 @@ is_at_least_version() {
 #   $1: The flag to check for.
 # Returns: 0 if the flag is present, 1 otherwise.
 has_mod_option() {
-	grep -qe "^${1}\$" "${_EXTRACTED_PATH}/mod_options"
+	if test -f "${_EXTRACTED_PATH}/mod_options" ; then
+		grep -qe "^${1}\$" "${_EXTRACTED_PATH}/mod_options"
+	else
+		return 1
+	fi
 }
 
 # require_version
@@ -234,9 +238,34 @@ end_squashfs_edit() {
 	rm -rf "${_WRAPPER}"
 }
 
-_MOD_FILE="${1%/}"
+# mktemp
+# Returns a temporary file or directory name. Syntax is the same as mktemp, with
+# the addition of an optional -l flag which must be the first argument if used.
+#
+# Parameters:
+#   -l: If passed and a large temporary space is available, create the temporary
+#       file in in instead of /tmp.
+# Returns: Prints the name of the temporary file or directory.
+_REAL_MKTEMP="$(which mktemp)"
+mktemp() {
+	if test "$1" = '-l' ; then
+		shift
+		if test -d "$LARGE_TEMP_DIR" ; then
+			"$_REAL_MKTEMP" -p "$LARGE_TEMP_DIR" "$@"
+		else
+			log "Large temp file was requested but we have nowhere to put it!"
+			"$_REAL_MKTEMP" "$@"
+		fi
+	else
+		"$_REAL_MKTEMP" "$@"
+	fi
+}
+
+# Set up an fd for log messages.
+exec 3>&1
 
 # Put the mod in a temp directory.
+_MOD_FILE="${1%/}"
 if test -f "$_MOD_FILE" -a "${_MOD_FILE%.zip}" != "$_MOD_FILE" ; then
 	_EXTRACTED_PATH="$(mktemp -d)"
 	echo "Extracting ${_MOD_FILE} (zip) to ${_EXTRACTED_PATH}"
@@ -283,4 +312,4 @@ if ! test -f './imager.sh' ; then
 fi
 
 shift
-source './imager.sh' "$@" 3>&1
+source './imager.sh' "$@"
