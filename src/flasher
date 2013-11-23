@@ -46,15 +46,6 @@ select_sequential_dir() {
 	echo "${1}/${I}"
 }
 
-unmount_images() {
-	log "Removing large temp directory"
-	rm -rf "$LARGE_TEMP_DIR"
-
-	log "Unmounting and removing ${IMAGES_DIR}"
-	umount "$IMAGES_DIR"
-	rmdir "$IMAGES_DIR"
-}
-
 # Check hardware version.
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
@@ -113,6 +104,15 @@ if test -f "${IMAGES_DIR}/dry_run" ; then
 	log "dry_run file is present, not performing destructive commands"
 	export DRY_RUN=1
 fi
+
+unmount_images() {
+	log "Removing large temp directory"
+	rm -rf "$LARGE_TEMP_DIR"
+
+	log "Unmounting and removing ${IMAGES_DIR}"
+	umount "$IMAGES_DIR"
+	rmdir "$IMAGES_DIR"
+}
 
 if test -f "${IMAGES_DIR}/init_partitions" ; then
 	unmount_images
