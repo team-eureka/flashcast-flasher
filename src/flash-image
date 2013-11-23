@@ -234,6 +234,29 @@ end_squashfs_edit() {
 	rm -rf "${_WRAPPER}"
 }
 
+# mktemp
+# Returns a temporary file or directory name. Syntax is the same as mktemp, with
+# the addition of an optional -l flag which must be the first argument if used.
+#
+# Parameters:
+#   -l: If passed and a large temporary space is available, create the temporary
+#       file in in instead of /tmp.
+# Returns: Prints the name of the temporary file or directory.
+_REAL_MKTEMP="$(which mktemp)"
+mktemp() {
+	if test "$1" = '-l' ; then
+		shift
+		if test -d "$LARGE_TEMP_DIR" ; then
+			"$_REAL_MKTEMP" -p "$LARGE_TEMP_DIR" "$@"
+		else
+			log "Large temp file was requested but we have nowhere to put it!"
+			"$_REAL_MKTEMP" "$@"
+		fi
+	else
+		"$_REAL_MKTEMP" "$@"
+	fi
+}
+
 # Set up an fd for log messages.
 exec 3>&1
 

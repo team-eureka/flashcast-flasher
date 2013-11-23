@@ -106,6 +106,9 @@ if test -f "${IMAGES_DIR}/dry_run" ; then
 fi
 
 unmount_images() {
+	log "Removing large temp directory"
+	rm -rf "$LARGE_TEMP_DIR"
+
 	log "Unmounting and removing ${IMAGES_DIR}"
 	umount "$IMAGES_DIR"
 	rmdir "$IMAGES_DIR"
@@ -129,6 +132,11 @@ else
 		cp '/root/flashcast.log' "$EXTERNAL_LOG"
 		LOG_FILES="$LOG_FILES $EXTERNAL_LOG"
 		log "Opened log file ${EXTERNAL_LOG}"
+
+		# Set up the large temp directory.
+		export LARGE_TEMP_DIR="${RUNTIME_DIR}/tmp"
+		mkdir "$LARGE_TEMP_DIR"
+		log "Created large temp directory ${LARGE_TEMP_DIR}"
 	else
 		log "${IMAGES_DIR} is not writable, not using a runtime directory"
 	fi
