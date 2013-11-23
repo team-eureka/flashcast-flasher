@@ -234,9 +234,11 @@ end_squashfs_edit() {
 	rm -rf "${_WRAPPER}"
 }
 
-_MOD_FILE="${1%/}"
+# Set up an fd for log messages.
+exec 3>&1
 
 # Put the mod in a temp directory.
+_MOD_FILE="${1%/}"
 if test -f "$_MOD_FILE" -a "${_MOD_FILE%.zip}" != "$_MOD_FILE" ; then
 	_EXTRACTED_PATH="$(mktemp -d)"
 	echo "Extracting ${_MOD_FILE} (zip) to ${_EXTRACTED_PATH}"
@@ -283,4 +285,4 @@ if ! test -f './imager.sh' ; then
 fi
 
 shift
-source './imager.sh' "$@" 3>&1
+source './imager.sh' "$@"
