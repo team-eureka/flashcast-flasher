@@ -15,3 +15,13 @@ supported flag files are listed below:
     a single mod won't halt the entire flashing process.
 - `no_reboot`: If present, FlashCast will not reboot the device after a
     successful flash.
+- `full_backup`: If present, FlashCast will backup the System, Recovery, Kernel, and
+    UserData partitions into a folder called `flashcast-backups` before any mods are flashed.
+    This feature should **ONLY** be used by developers. This feature is currently in Alpha, and
+    should not be relied on at this time.
+- `full_restore`: If present, FlashCast will restore a backup that was made with the `full_backup` flag.
+    When this file is created, please place a number in the file, ex 1, to tell flashcast which backup to restore.
+    For example, if the backup you want to restore is in `flashcast-backups/backup-2/` then you would put `2` inside of 
+    `full_restore`.
+    This feature should **ONLY** be used by developers. This feature is currently in Alpha, and
+    should not be relied on at this time.

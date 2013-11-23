@@ -46,6 +46,15 @@ select_sequential_dir() {
 	echo "${1}/${I}"
 }
 
+unmount_images() {
+	log "Removing large temp directory"
+	rm -rf "$LARGE_TEMP_DIR"
+
+	log "Unmounting and removing ${IMAGES_DIR}"
+	umount "$IMAGES_DIR"
+	rmdir "$IMAGES_DIR"
+}
+
 # Check hardware version.
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
@@ -105,15 +114,6 @@ if test -f "${IMAGES_DIR}/dry_run" ; then
 	export DRY_RUN=1
 fi
 
-unmount_images() {
-	log "Removing large temp directory"
-	rm -rf "$LARGE_TEMP_DIR"
-
-	log "Unmounting and removing ${IMAGES_DIR}"
-	umount "$IMAGES_DIR"
-	rmdir "$IMAGES_DIR"
-}
-
 if test -f "${IMAGES_DIR}/init_partitions" ; then
 	unmount_images
 	log "init_partitions file is present, setting up partitions"
@@ -140,9 +140,22 @@ else
 	else
 		log "${IMAGES_DIR} is not writable, not using a runtime directory"
 	fi
+	
+	# Check if we are doing a backup, and only work when running from USB
+	if test -f "${IMAGES_DIR}/full_backup" ; then
+		if test "$BOOT_MODE" = usb ; then
+			log "full_backup flag detected, backing up partitions"
+			log_cmd flash-image '/usr/share/flasher/full-backup'
+		else
+			fatal "full_backup flag detected, but backups are disabled in non-USB boot modes"
+		fi
+	fi
 
 	# Check for images.
-	if test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
+	if test -f "${IMAGES_DIR}/full_restore" ; then
+		log "full_restore flag detected, restoring partitions from ./flashcast-backups/backup-$(cat ${IMAGES_DIR}/full_restore)"
+		log_cmd flash-image '/usr/share/flasher/full-restore' "$(cat ${IMAGES_DIR}/full_restore)"
+	elif test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
 		log "Factory reset requested, performing"
 		log_cmd flash-image '/usr/share/flasher/factory-reset'
 	elif test -f "${IMAGES_DIR}/eureka_image.zip" ; then
@@ -162,6 +175,8 @@ else
 			IGNORE_ERRORS=1
 		fi
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
+	elif test -f "/tmp/backup_dir" ; then
+		log "Backups Completed Successfully"
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
 	fi
