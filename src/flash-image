@@ -49,7 +49,11 @@ is_at_least_version() {
 #   $1: The flag to check for.
 # Returns: 0 if the flag is present, 1 otherwise.
 has_mod_option() {
-	grep -qe "^${1}\$" "${_EXTRACTED_PATH}/mod_options"
+	if test -f "${_EXTRACTED_PATH}/mod_options" ; then
+		grep -qe "^${1}\$" "${_EXTRACTED_PATH}/mod_options"
+	else
+		return 1
+	fi
 }
 
 # require_version
