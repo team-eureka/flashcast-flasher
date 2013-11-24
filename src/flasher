@@ -123,7 +123,7 @@ else
 
 	if test -w "$IMAGES_DIR" ; then
 		# Set up the runtime directory.
-		RUNTIME_DIR="$(select_sequential_dir "${IMAGES_DIR}/flashcast-data")"
+		export RUNTIME_DIR="$(select_sequential_dir "${IMAGES_DIR}/flashcast-data")"
 		mkdir "$RUNTIME_DIR"
 		log "Using runtime directory ${RUNTIME_DIR}"
 
