@@ -81,6 +81,157 @@ mtd_lookup() {
 	fi
 }
 
+# backup_mtd_partition
+# Used to Dump an MTP partition.
+#
+# Parameters:
+# $1: The name (NOT number) of the MTD partition to dump.
+# Returns: 0 on success, 1 on failure.
+backup_mtd_partition() {
+	_PARTITION="$(mtd_lookup "$1")"
+	if test "$?" -ne 0 ; then
+		return 1;
+	fi
+	
+	# I know this is bad, but we can't store this in /tmp if images are there due to space
+	_TEMP_MOUNT="$(mktemp -d)"
+	if ! mount "/dev/sda1" "$_TEMP_MOUNT" ; then
+		log "Could not mount /dev/sda1 to $_TEMP_MOUNT"
+		rm -r ${_TEMP_MOUNT}
+		return 1;
+	fi
+
+	# Do we know the mount point? We do this so all backups go to the same folder
+	if ! test -f "/tmp/backup_dir" ; then
+		I=1
+		while test -d "$_TEMP_MOUNT/flashcast-backups/backup-${I}/" ; do
+                	I="$((I+1))"
+		done
+		dry_run "Would create $_TEMP_MOUNT/flashcast-backups/backup-${I}"
+		if test -z "$DRY_RUN" ; then
+			mkdir -p "$_TEMP_MOUNT/flashcast-backups/backup-${I}"
+		fi
+        	echo "flashcast-backups/backup-${I}" > /tmp/backup_dir
+	fi
+	_BACKUPFOLDER="$(cat /tmp/backup_dir)"
+        
+        # are we data? otherwise, use nanddump.
+        #
+        # We do this because dd & nanddump...
+        # 1: uses ALOT less space
+        # 2: dumps of this partition do not write back properly
+	if test "${1}" = "userdata" ; then
+		dry_run "Would backup ${1} to $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.zip"
+		if test -z "$DRY_RUN" ; then
+			log "Backing Up ${1} to $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.zip"
+			_DATAFOLDER="$(mktemp -d)"
+			if ! mount "/dev/mtdblock5" "$_DATAFOLDER" ; then
+				log "Failed to Mount $_PARTITION to $_DATAFOLDER"
+				rm -r ${_DATAFOLDER}
+				return 1;
+			else
+				cd $_DATAFOLDER
+				if ! zip -qry $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.zip ./* -x \*wpa_ctrl\* ; then
+					fatal "Error while compressing contents of userdata, aborting."
+					return 1;
+				fi
+				cd - > /dev/null
+	
+				# userdata backups needs some extra cleanup love
+				umount ${_DATAFOLDER} && rm -r ${_DATAFOLDER}
+			fi
+		fi
+	else
+		dry_run "Would backup ${1} to $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.img"
+		if test -z "$DRY_RUN" ; then
+			log "Backing Up ${1} to $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.img"
+			if ! nanddump -q -f "${_TEMP_MOUNT}/${_BACKUPFOLDER}/${1}.img" "/dev/${_PARTITION}"; then
+				fatal "Error Saving ${1} to $_TEMP_MOUNT/$_BACKUPFOLDER/${1}.img"
+				return 1;
+			fi
+		fi
+	fi
+
+	#Do our own Cleanup
+	umount ${_TEMP_MOUNT} && rm -r ${_TEMP_MOUNT}
+}
+
+# restore_mtd_partition
+# Used to Restore dumps made by backup_mtd_partition.
+#
+# Parameters:
+#   $1: The name (NOT number) of the MTD partition to restore.
+#   $2: The number of the backup to restore
+# Returns: 0 on success, 1 on failure.
+restore_mtd_partition() {
+	_PARTITION="$(mtd_lookup "$1")"
+	if test "$?" -ne 0 ; then
+		return 1;
+	elif test -z "$2" ; then
+        fatal "Error, No Backup Selected."
+	fi
+	
+	# We need a mount point to get the images, and again, files are too big for /tmp
+	_TEMP_MOUNT="$(mktemp -d)"
+	if ! mount "/dev/sda1" "$_TEMP_MOUNT" ; then
+		log "Could not mount /dev/sda1 to $_TEMP_MOUNT"
+		rm -r ${_TEMP_MOUNT}
+		return 1;
+	fi
+        
+	# Does the backup even exist?	
+	if ! test -d "${_TEMP_MOUNT}/flashcast-backups/backup-${2}" ; then	
+		fatal "Backup Folder backup-${2} Does not exist"
+	fi
+    	# are we data? otherwise, use nandwrite.
+	if test "${1}" = "userdata" ; then
+		_RESTOREIMAGE="${_TEMP_MOUNT}/flashcast-backups/backup-${2}/${1}.zip"
+		dry_run "Would restore ${1} from ${_RESTOREIMAGE}"
+		if test -z "$DRY_RUN" ; then
+			if ! test -f "${_RESTOREIMAGE}" ; then	
+				fatal "Image File ${_RESTOREIMAGE} Does not exist"
+			fi
+			log "Restoring ${1} from ${_RESTOREIMAGE}"
+			_DATAFOLDER="$(mktemp -d)"
+			if ! mount "/dev/mtdblock5" "$_DATAFOLDER" ; then
+				log "Failed to Mount $_PARTITION to $_DATAFOLDER"
+				rm -r ${_DATAFOLDER}
+				return 1;
+			else
+				if ! unzip -oKXq ${_RESTOREIMAGE} -d ${_DATAFOLDER} ; then
+					fatal "Error while restoring contents of userdata, aborting."
+					return 1;
+				fi
+				
+				# For some reason the device name will not read its name unless we change permissions
+				if test -f "${_DATAFOLDER}/chrome/.eureka.conf" ; then
+					chmod 666 "${_DATAFOLDER}/chrome/.eureka.conf"
+				fi
+				
+				# userdata backups needs some extra cleanup love
+				umount ${_DATAFOLDER} && rm -r ${_DATAFOLDER}
+			fi
+		fi
+	else
+		_RESTOREIMAGE="${_TEMP_MOUNT}/flashcast-backups/backup-${2}/${1}.img"
+		dry_run "Would restore ${1} from ${_RESTOREIMAGE}"
+		if test -z "$DRY_RUN" ; then
+			if ! test -f "${_RESTOREIMAGE}" ; then	
+				fatal "Image File ${_RESTOREIMAGE} Does not exist"
+			fi
+			log "Restoring ${1} from ${_RESTOREIMAGE}"
+			flash_erase -q "/dev/${_PARTITION}" 0 0 
+			if ! nandwrite -qp "/dev/${_PARTITION}" "$_RESTOREIMAGE"; then
+				fatal "Error Restoring ${1} from ${_RESTOREIMAGE}"
+				return 1;
+			fi
+		fi
+	fi
+
+	#Do our own Cleanup
+	umount ${_TEMP_MOUNT} && rm -r ${_TEMP_MOUNT}
+}
+
 # flash_mtd_partition
 # Writes an image to an MTD partition.
 #

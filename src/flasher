@@ -140,9 +140,22 @@ else
 	else
 		log "${IMAGES_DIR} is not writable, not using a runtime directory"
 	fi
+	
+	# Check if we are doing a backup, and only work when running from USB
+	if test -f "${IMAGES_DIR}/full_backup" ; then
+		if test "$BOOT_MODE" = usb ; then
+			log "full_backup flag detected, backing up partitions"
+			log_cmd flash-image '/usr/share/flasher/full-backup'
+		else
+			fatal "full_backup flag detected, but backups are disabled in non-USB boot modes"
+		fi
+	fi
 
 	# Check for images.
-	if test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
+	if test -f "${IMAGES_DIR}/full_restore" ; then
+		log "full_restore flag detected, restoring partitions from ./flashcast-backups/backup-$(cat ${IMAGES_DIR}/full_restore)"
+		log_cmd flash-image '/usr/share/flasher/full-restore' "$(cat ${IMAGES_DIR}/full_restore)"
+	elif test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
 		log "Factory reset requested, performing"
 		log_cmd flash-image '/usr/share/flasher/factory-reset'
 	elif test -f "${IMAGES_DIR}/eureka_image.zip" ; then
@@ -162,6 +175,8 @@ else
 			IGNORE_ERRORS=1
 		fi
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
+	elif test -f "/tmp/backup_dir" ; then
+		log "Backups Completed Successfully"
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
 	fi

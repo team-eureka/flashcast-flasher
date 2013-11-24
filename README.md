@@ -33,3 +33,9 @@ There are also a set of mods which ship with FlashCast and are called by
 - `remove-ota`: This mod is run on every FlashCast boot. It removes `ota.zip`
     and `temp-ota.zip` from the cache MTD partition in case an update was
     partially downloaded by the stock OS.
+- `full-backup`: This mod is run when a `full_backup` flag file is present. It
+    creates a backup of /system, /userdata, and the kernel to a unique folder in 
+    the folder `flashcast-backups`.
+- `full-restore`: This mod is run when a `full_restore` flag file is present. It
+    will restore a that was made using `full-backup`. Please read the flag documentation
+    on how to select which backup to restore.
