@@ -73,10 +73,13 @@ else
 fi
 log "Looking for mods on ${IMAGES_DEVICE}"
 
-# Make the bootloader happy.
-log "Resetting crash counter and boot mode"
-fts-set crashcounter.android 0
-set-boot-cmd normal
+reset_bootmode()  {
+	# Make the bootloader happy.
+	log "Resetting crash counter and boot mode"
+	fts-set crashcounter.android 0
+	set-boot-cmd normal
+}
+trap reset_bootmode EXIT
 
 # Clear any downloaded OTAs.
 log "Clearing OTAs"
@@ -112,6 +115,9 @@ unmount_images() {
 	log "Unmounting and removing ${IMAGES_DIR}"
 	umount "$IMAGES_DIR"
 	rmdir "$IMAGES_DIR"
+
+	# Run the previous exit trap
+	reset_bootmode
 }
 
 if test -f "${IMAGES_DIR}/init_partitions" ; then
