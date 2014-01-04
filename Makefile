@@ -13,4 +13,5 @@ install: all
 	$(INSTALL) -p utils/vercmp '$(DESTDIR)/usr/sbin'
 	$(INSTALL) -d '$(DESTDIR)/etc/init.d'
 	$(INSTALL) -p src/initscript '$(DESTDIR)/etc/init.d/S60flashcast-flasher'
+	cat src/bashrc >> '$(DESTDIR)/root/.bashrc'
 	echo '$(VERSION)' > '$(DESTDIR)/etc/flasher-version'
