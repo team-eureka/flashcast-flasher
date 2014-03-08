@@ -11,7 +11,16 @@ log() {
 	log_cmd echo "$1"
 }
 
+kill_led() {
+	if test -f /tmp/flash-led.pid ; then
+		kill "$(cat /tmp/flash-led.pid)"
+		rm /tmp/flash-led.pid
+	fi
+	set-led off
+}
+
 fatal() {
+	kill_led
 	set-led red
 	log "SETUP FAILED: ${1}" | tee /etc/motd
 	exit 1
@@ -147,6 +156,10 @@ else
 		log "${IMAGES_DIR} is not writable, not using a runtime directory"
 	fi
 
+	# Start the LED Flash, write pid to file for termination
+	led-updating &
+	echo "$!" > /tmp/flash-led.pid
+
 	# Check for images.
 	if test "$BOOT_MODE" = recovery && has_recovery_param '--wipe_data' ; then
 		log "Factory reset requested, performing"
@@ -176,6 +189,8 @@ fi
 # Reboot the system once we're done flashing, unless the user has prevented it or the script failed.
 if test "$?" -eq 0 ; then
 	log "Flashing succeeded"
+	kill_led
+	set-led white
 	if ! test -f "${IMAGES_DIR}/no_reboot" ; then
 		log "Rebooting"
 		reboot
@@ -184,5 +199,6 @@ if test "$?" -eq 0 ; then
 	fi
 else
 	log "Flashing failed"
+	kill_led
 	set-led red
 fi
