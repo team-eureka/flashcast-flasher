@@ -235,7 +235,7 @@ end_squashfs_edit() {
 		log "Failed to repack squashfs image at ${_WRAPPER}"
 		_END_SQUASHFS_EDIT_RETVAL=1
 	else
-		flash_mtd_partition "$(cat "${_WRAPPER}/mtdpart")" "${_WRAPPER}/repack.sqfs"
+		flash_mtd_partition "$(cat "${_WRAPPER}/mtdpart")" "$_REPACKED_FS"
 		_END_SQUASHFS_EDIT_RETVAL="$?"
 	fi
 
