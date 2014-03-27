@@ -118,6 +118,7 @@ mount_mtd_partition() {
 	log "Mounting ${1} (${_PARTITION}) at ${_MOUNT_DIR}"
 	if ! mount "/dev/mtdblock${_PARTITION#mtd}" "$_MOUNT_DIR" ; then
 		log "Could not mount MTD partition ${1}"
+		rmdir "$_MOUNT_DIR"
 		return 1;
 	fi
 	echo "$_MOUNT_DIR"
@@ -171,16 +172,18 @@ begin_squashfs_edit() {
 		return 1;
 	fi
 
-	_WRAPPER="$(mktemp -d)"
-	log "Setting up squashfs union at ${_WRAPPER}"
-	mkdir "${_WRAPPER}/base" "${_WRAPPER}/overlay" "${_WRAPPER}/union"
-
 	_PARTITION="$(mtd_lookup "$1")"
 	if test "$?" -ne 0 ; then
 		return 1;
 	fi
+
+	_WRAPPER="$(mktemp -d)"
+	log "Setting up squashfs union at ${_WRAPPER}"
+	mkdir "${_WRAPPER}/base" "${_WRAPPER}/overlay" "${_WRAPPER}/union"
+
 	if ! mount -t squashfs "/dev/mtdblock${_PARTITION#mtd}" "${_WRAPPER}/base" ; then
 		log "Could not mount MTD partition ${1}"
+		rm -r "$_WRAPPER"
 		return 1;
 	fi
 
@@ -205,6 +208,7 @@ begin_squashfs_image_edit() {
 
 	if ! mount -o loop -t squashfs "$1" "${_WRAPPER}/base" ; then
 		log "Could not mount local squashfs image ${1}"
+		rm -r "$_WRAPPER"
 		return 1
 	fi
 
@@ -221,21 +225,25 @@ begin_squashfs_image_edit() {
 # Parameters:
 #   $1: The directory returned by begin_squashfs_edit.
 end_squashfs_edit() {
+	_END_SQUASHFS_EDIT_RETVAL=0
+
 	_WRAPPER="${1%/union}"
 	log "Reflashing squashfs union at ${_WRAPPER}"
 
 	_REPACKED_FS="${_WRAPPER}/repack.sqfs"
 	if ! mksquashfs "${_WRAPPER}/union" "$_REPACKED_FS" -no-progress ; then
 		log "Failed to repack squashfs image at ${_WRAPPER}"
-		return 1
+		_END_SQUASHFS_EDIT_RETVAL=1
+	else
+		flash_mtd_partition "$(cat "${_WRAPPER}/mtdpart")" "${_WRAPPER}/repack.sqfs"
+		_END_SQUASHFS_EDIT_RETVAL="$?"
 	fi
-
-	flash_mtd_partition "$(cat "${_WRAPPER}/mtdpart")" "${_WRAPPER}/repack.sqfs"
 
 	fusermount -u "${_WRAPPER}/union"
 	umount "${_WRAPPER}/base"
+	rm -r "${_WRAPPER}"
 
-	rm -rf "${_WRAPPER}"
+	return "$_END_SQUASHFS_EDIT_RETVAL"
 }
 
 # mktemp
