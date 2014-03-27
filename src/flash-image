@@ -177,7 +177,7 @@ begin_squashfs_edit() {
 		return 1;
 	fi
 
-	_WRAPPER="$(mktemp -d)"
+	_WRAPPER="$(mktemp -l -d)"
 	log "Setting up squashfs union at ${_WRAPPER}"
 	mkdir "${_WRAPPER}/base" "${_WRAPPER}/overlay" "${_WRAPPER}/union"
 
@@ -202,7 +202,7 @@ begin_squashfs_edit() {
 #   $2: The name (NOT number) of the MTD partition to write the image to.
 # Returns: Prints the path to the editable mount.
 begin_squashfs_image_edit() {
-	_WRAPPER="$(mktemp -d)"
+	_WRAPPER="$(mktemp -l -d)"
 	log "Setting up squashfs image union at ${_WRAPPER}"
 	mkdir "${_WRAPPER}/base" "${_WRAPPER}/overlay" "${_WRAPPER}/union"
 
