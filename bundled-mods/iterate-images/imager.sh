@@ -12,7 +12,7 @@ for IMAGE_PATH in "$1"/* ; do
 
 	flash-image "$IMAGE_PATH"
 	# Check for imager.sh failure.
-	if test "$?" -eq 1 ; then
+	if test "$?" -ne 0 ; then
 		if test -n "$IGNORE_ERRORS" ; then
 			log "${IMAGE_PATH} failed to flash, ignoring error"
 		else
