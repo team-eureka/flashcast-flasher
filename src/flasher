@@ -55,6 +55,22 @@ select_sequential_dir() {
 	echo "${1}/${I}"
 }
 
+# This is certainly not an optimal solution for making sure temp
+# dirs don't stick around, but we're stuck with it for now since
+# a bug in v1.2 stopped the temp dir from being removed in some
+# cases and we need this fix to automatically clean those up.
+clear_old_temp_dirs() {
+	if ! test -d "$1" ; then
+		return 1
+	fi
+
+	I=1
+	while test -d "${1}/${I}" ; do
+		rm -rf "${1}/${I}/tmp"
+		I="$((I+1))"
+	done
+}
+
 # Check hardware version.
 if ! grep -qe '\bandroidboot\.hardware=eureka-b3\b' /proc/cmdline ; then
 	fatal "Unsupported hardware! This script is designed for the original Chromecast."
@@ -137,6 +153,9 @@ else
 	trap unmount_images EXIT
 
 	if test -w "$IMAGES_DIR" ; then
+		log "Removing old temporary directories"
+		clear_old_temp_dirs "${IMAGES_DIR}/flashcast-data"
+
 		# Set up the runtime directory.
 		export RUNTIME_DIR="$(select_sequential_dir "${IMAGES_DIR}/flashcast-data")"
 		mkdir "$RUNTIME_DIR"
