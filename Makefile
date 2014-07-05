@@ -1,4 +1,4 @@
-VERSION = 1.1.1
+VERSION = 1.2
 
 INSTALL = install
 
@@ -10,6 +10,7 @@ install: all
 	$(INSTALL) -d '$(DESTDIR)/usr/sbin'
 	$(INSTALL) -p src/flasher '$(DESTDIR)/usr/sbin'
 	$(INSTALL) -p src/flash-image '$(DESTDIR)/usr/sbin'
+	$(INSTALL) -p src/led-updating '$(DESTDIR)/usr/sbin'
 	$(INSTALL) -p utils/vercmp '$(DESTDIR)/usr/sbin'
 	$(INSTALL) -d '$(DESTDIR)/etc/init.d'
 	$(INSTALL) -p src/initscript '$(DESTDIR)/etc/init.d/S60flashcast-flasher'

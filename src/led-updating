@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# The point of this script is to cycle the LED from off to white, to emulate flashing
+# Terminate by killing the pid assigned to the process.
+
+while [ true ]
+do
+	set-led white
+	usleep 800000
+	set-led off
+	usleep 200000
+done
