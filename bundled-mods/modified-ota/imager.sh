@@ -14,6 +14,11 @@ flash_mtd_partition kernel "${OTA_PATH}/boot.img"
 log "Flashing System"
 flash_mtd_partition rootfs "${OTA_PATH}/system.img"
 
+# We do this to make sure we have enough space on temp to work on the sys image
+log "Cleaning Up"
+rm "${OTA_PATH}/boot.img"
+rm "${OTA_PATH}/system.img"
+
 log "Starting System Modification"
 ROOTFS="$(begin_squashfs_edit 'rootfs')"
 
@@ -28,7 +33,7 @@ log "Enabling Telnet Access"
 rm "${ROOTFS}/bin/sntpd"
 echo -e '#!/bin/sh\n/system/bin/busybox telnetd -l /system/bin/sh\n/bin/toolbox sntpd' > "${ROOTFS}/bin/sntpd"
 
-Log "Done Editing, Writing Changes"
+log "Done Editing, Writing Changes"
 end_squashfs_edit "$ROOTFS"
 
 log "OTA Complete!"
