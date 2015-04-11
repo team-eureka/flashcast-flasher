@@ -92,7 +92,7 @@ has_recovery_param() {
 # Figure out where to look for mods before we reset the boot command.
 BOOT_MODE="$(get_boot_mode)"
 if test "$BOOT_MODE" = 'usb' ; then
-	IMAGES_DEVICE='/dev/sda1'
+	fatal "Unsupported Mode! This version of Flashcast can only be ran from the recovery parition of the Chromecast."
 else
 	IMAGES_DEVICE='/dev/mtdblock4'
 fi
@@ -105,10 +105,6 @@ reset_bootmode()  {
 	set-boot-cmd normal
 }
 trap reset_bootmode EXIT
-
-# Clear any downloaded OTAs.
-log "Clearing OTAs"
-log_cmd flash-image '/usr/share/flasher/remove-ota'
 
 # If the device doesn't exist, give it 5 seconds to be detected.
 if ! test -b "$IMAGES_DEVICE" ; then
@@ -200,6 +196,9 @@ else
 			IGNORE_ERRORS=1
 		fi
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
+	elif test -f "${IMAGES_DIR}/ota.zip" ; then
+		log "Found stock device ota.zip, using"
+		log_cmd flash-image '/usr/share/flasher/modified-ota' "${IMAGES_DIR}/ota.zip"
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
 	fi
