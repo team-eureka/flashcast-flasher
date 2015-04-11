@@ -19,7 +19,7 @@ ROOTFS="$(begin_squashfs_edit 'rootfs')"
 
 log "Replacing Stock Recovery"
 rm "${ROOTFS}/boot/recovery.img"
-# TODO: Add Logic to flash self to this file! dd of current partition?
+dd if=/dev/mtdblock6 of="${ROOTFS}/boot/recovery.img" #Dirty but functional
 
 log "Adding Busybox"
 cp "./busybox" "${ROOTFS}/bin/"
