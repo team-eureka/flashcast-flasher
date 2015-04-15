@@ -32,6 +32,7 @@ cp "./busybox" "${ROOTFS}/bin/"
 log "Enabling Telnet Access"
 rm "${ROOTFS}/bin/sntpd"
 echo -e '#!/bin/sh\n/system/bin/busybox telnetd -l /system/bin/sh\n/bin/toolbox sntpd' > "${ROOTFS}/bin/sntpd"
+chmod +x "${ROOTFS}/bin/sntpd"
 
 log "Done Editing, Writing Changes"
 end_squashfs_edit "$ROOTFS"
