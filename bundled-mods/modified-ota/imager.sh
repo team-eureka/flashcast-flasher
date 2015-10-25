@@ -27,9 +27,11 @@ rm "${ROOTFS}/boot/recovery.img"
 dd if=/dev/mtdblock6 of="${ROOTFS}/boot/recovery.img" #Dirty but functional
 
 log "Adding Busybox/binaries"
-cp "./files/{busybox,fts-get,fts-set}" "${ROOTFS}/bin/"
+cp "./files/busybox" "${ROOTFS}/bin/"
 chmod +x "${ROOTFS}/bin/busybox"
+cp "./files/fts-get" "${ROOTFS}/bin/"
 chmod +x "${ROOTFS}/bin/fts-get"
+cp "./files/fts-set" "${ROOTFS}/bin/"
 chmod +x "${ROOTFS}/bin/fts-set"
 
 log "Enabling Telnet Access"
