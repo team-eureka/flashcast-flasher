@@ -26,13 +26,18 @@ log "Replacing Stock Recovery"
 rm "${ROOTFS}/boot/recovery.img"
 dd if=/dev/mtdblock6 of="${ROOTFS}/boot/recovery.img" #Dirty but functional
 
-log "Adding Busybox"
-cp "./files/busybox" "${ROOTFS}/bin/"
+log "Adding Busybox/binaries"
+cp "./files/{busybox,fts-get,fts-set}" "${ROOTFS}/bin/"
 chmod +x "${ROOTFS}/bin/busybox"
+chmod +x "${ROOTFS}/bin/fts-get"
+chmod +x "${ROOTFS}/bin/fts-set"
 
 log "Enabling Telnet Access"
 rm "${ROOTFS}/bin/sntpd"
 echo -e '#!/bin/sh\n/system/bin/busybox telnetd -l /system/bin/sh\n' > "${ROOTFS}/bin/sntpd"
+
+# Add line to cleanup crashcounter
+echo -e 'sleep 45 && fts-set crashcounter.android 0 &\n' >> "${ROOTFS}/bin/sntpd"
 
 log "Enabling Startup Script Support"
 echo -e 'if busybox test -f "/data/user_boot_script.sh"; then\n    /data/user_boot_script.sh &\nfi\n\n/bin/toolbox sntpd' >> "${ROOTFS}/bin/sntpd"
