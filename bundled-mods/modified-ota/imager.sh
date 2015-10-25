@@ -46,4 +46,10 @@ chmod 700 "${ROOTFS}/etc/dhcpcd/dhcpcd-hooks/20-dns.conf"
 log "Done Editing, Writing Changes"
 end_squashfs_edit "$ROOTFS"
 
+#If we make it here, it's safe to cleanup
+CACHE="$(mount_mtd_partition cache)"
+log "Removing temp-ota.zip and ota.zip from cache partition (${CACHE})"
+rm -f "${CACHE}/temp-ota.zip" "${CACHE}/ota.zip"
+cleanup_mount "$CACHE"
+
 log "OTA Complete!"
