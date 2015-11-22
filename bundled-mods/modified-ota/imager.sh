@@ -49,6 +49,7 @@ log "Enabling Custom DNS Server Support"
 rm "${ROOTFS}/etc/dhcpcd/dhcpcd-hooks/20-dns.conf"
 cp "./files/20-dns.conf" "${ROOTFS}/etc/dhcpcd/dhcpcd-hooks/20-dns.conf"
 chmod 700 "${ROOTFS}/etc/dhcpcd/dhcpcd-hooks/20-dns.conf"
+chown 1013:1013 "${ROOTFS}/etc/dhcpcd/dhcpcd-hooks/20-dns.conf"
 
 log "Done Editing, Writing Changes"
 end_squashfs_edit "$ROOTFS"
