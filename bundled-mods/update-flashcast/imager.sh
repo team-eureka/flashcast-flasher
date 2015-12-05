@@ -1,9 +1,5 @@
 set -e
 
-if ! test "$#" -ge 1 -a -f "$1" ; then
-	fatal "Invalid argument"
-fi
-
 CleanupTime() {
 	rm -r $OTA_PATH
 }
