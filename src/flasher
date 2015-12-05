@@ -198,6 +198,11 @@ else
 		log_cmd flash-image '/usr/share/flasher/iterate-images' "${IMAGES_DIR}/flashcast-mods" "$IGNORE_ERRORS"
 	elif test -f "${IMAGES_DIR}/ota.zip" ; then
 		log "Found stock device ota.zip, using"
+		if test -f "${IMAGES_DIR}/disable_ota" ; then
+			log "OTA Disabled, skipping"
+		else
+			log_cmd flash-image '/usr/share/flasher/update-flashcast'
+		fi
 		log_cmd flash-image '/usr/share/flasher/autoroot-ota' "${IMAGES_DIR}/ota.zip"
 	else
 		fatal "No images found on ${IMAGES_DEVICE}"
