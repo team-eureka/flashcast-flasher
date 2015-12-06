@@ -11,32 +11,30 @@ if [ $? -eq 0 ]; then
     log "Internet Connection Found, Checking..."
 
 	LATESTVER=`wget -q http://pdl.team-eureka.com/recovery/latest.txt -O -`
-	CURRENTVER='cat /usr/share/flasher/autoroot-ota/version.txt'
+	CURRENTVER=`cat /usr/share/flasher/autoroot-ota/version.txt`
 
-	if [ "`echo $LATESTVER | awk '{print $1}'`" == "$CURRENTVER" ]; then
+	if grep -q "$CURRENTVER" "$LATESTVER"; then
 		log "No Update needed, exiting..."
 	else
 		log "Update Required! Upgrading..."
 
 		OTA_PATH="$(mktemp -d) "
-		OTA_DL=`echo $LATESTVER | awk '{print $2}'`
 
-		wget -q "$OTA_DL" -O "${OTA_PATH}/recovery.img"
+		wget -q "$LATESTVER" -O "${OTA_PATH}/recovery.img"
 		if [ $? -ne 0 ];
 		then
 			pLog "Error Downloading! Skipping update, and continuing on..."
 			CleanupTime
 			exit 0
-		else
 		fi
 
-		wget -q "$OTA_DL.md5" -O "${OTA_PATH}/recovery.img.md5"
+		wget -q "$LATESTVER.md5" -O "${OTA_PATH}/recovery.img.md5"
 		if [ $? -ne 0 ];
 		then
 			pLog "Error Downloading MD5! Skipping update, and continuing on..."
 			CleanupTime
 			exit 0
-		else
+		fi
 
 		MD5=`md5sum $OTA_PATH/recovery.img | awk '{print $1}'`
 		if grep -q "$MD5" "$OTA_PATH/recovery.img.md5"; then
