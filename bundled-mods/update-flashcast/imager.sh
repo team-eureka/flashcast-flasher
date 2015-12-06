@@ -40,10 +40,10 @@ if [ $? -eq 0 ]; then
 		if grep -q "$MD5" "$OTA_PATH/recovery.img.md5"; then
 			log "MD5 Verified Flashing and restarting!"
 			flash_mtd_partition recovery "${OTA_PATH}/recovery.img"
-			sync
 			set-boot-cmd recovery
+			sleep 5
 			reboot
-			sleep 120
+			sleep 120 # just to make sure
 		else
 			log "MD5 Mismatch! Skipping update, and continuing on..."
 			CleanupTime
