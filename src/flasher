@@ -102,7 +102,13 @@ reset_bootmode()  {
 	# Make the bootloader happy.
 	log "Resetting crash counter and boot mode"
 	fts-set crashcounter.android 0
-	set-boot-cmd normal
+
+	# Do we need to reboot into recovery?
+	if test -f "/tmp/flashcast.update" ; then
+			set-boot-cmd recovery
+	else
+			set-boot-cmd normal
+	fi
 }
 trap reset_bootmode EXIT
 

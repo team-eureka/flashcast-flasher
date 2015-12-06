@@ -38,9 +38,11 @@ if [ $? -eq 0 ]; then
 
 		MD5=`md5sum $OTA_PATH/recovery.img | awk '{print $1}'`
 		if grep -q "$MD5" "$OTA_PATH/recovery.img.md5"; then
+			# Touch OTA file, tells flashcast to reboot into RECOVERY next run
+			touch /tmp/flashcast.update
+
 			log "MD5 Verified Flashing and restarting!"
 			flash_mtd_partition recovery "${OTA_PATH}/recovery.img"
-			set-boot-cmd recovery
 			sleep 5
 			reboot
 			sleep 120 # just to make sure
