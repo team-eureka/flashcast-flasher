@@ -13,12 +13,12 @@ if [ $? -eq 0 ]; then
 	LATESTVER=`wget -q http://pdl.team-eureka.com/recovery/latest.txt -O -`
 	CURRENTVER=`cat /usr/share/flasher/autoroot-ota/version.txt`
 
-	if grep -q "$CURRENTVER" "$LATESTVER"; then
+	if grep -q "$CURRENTVER" <<< "$LATESTVER" ; then
 		log "No Update needed, exiting..."
 	else
 		log "Update Required! Upgrading..."
 
-		OTA_PATH="$(mktemp -d) "
+		OTA_PATH="$(mktemp -d)"
 
 		wget -q "$LATESTVER" -O "${OTA_PATH}/recovery.img"
 		if [ $? -ne 0 ];
