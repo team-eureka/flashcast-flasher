@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
 		wget -q "$LATESTVER" -O "${OTA_PATH}/recovery.img"
 		if [ $? -ne 0 ];
 		then
-			pLog "Error Downloading! Skipping update, and continuing on..."
+			log "Error Downloading! Skipping update, and continuing on..."
 			CleanupTime
 			exit 0
 		fi
@@ -31,21 +31,21 @@ if [ $? -eq 0 ]; then
 		wget -q "$LATESTVER.md5" -O "${OTA_PATH}/recovery.img.md5"
 		if [ $? -ne 0 ];
 		then
-			pLog "Error Downloading MD5! Skipping update, and continuing on..."
+			log "Error Downloading MD5! Skipping update, and continuing on..."
 			CleanupTime
 			exit 0
 		fi
 
 		MD5=`md5sum $OTA_PATH/recovery.img | awk '{print $1}'`
 		if grep -q "$MD5" "$OTA_PATH/recovery.img.md5"; then
-			pLog "MD5 Verified Flashing and restarting!"
+			log "MD5 Verified Flashing and restarting!"
 			flash_mtd_partition recovery "${OTA_PATH}/recovery.img"
 			sync
 			set-boot-cmd recovery
 			reboot
 			sleep 120
 		else
-			pLog "MD5 Mismatch! Skipping update, and continuing on..."
+			log "MD5 Mismatch! Skipping update, and continuing on..."
 			CleanupTime
 			exit 0
 		fi
