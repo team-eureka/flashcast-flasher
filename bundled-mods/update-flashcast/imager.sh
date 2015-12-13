@@ -10,8 +10,16 @@ wget -T2 -q -s http://pdl.team-eureka.com
 if [ $? -eq 0 ]; then
     log "Internet Connection Found, Checking..."
 
-	LATESTVER=`wget -q http://pdl.team-eureka.com/recovery/latest.txt -O -`
+	LATESTVERURL=`wget -q http://pdl.team-eureka.com/recovery/latest.txt -O -`
+	VALIDCHECK=`echo $LATESTVERURL | awk '{ print $1 }'`
+	LATESTVER=`echo $LATESTVERURL | awk '{ print $2 }'`
 	CURRENTVER=`cat /usr/share/flasher/autoroot-ota/version.txt`
+
+	# We need to first make sure we are getting an update file!
+	if [[ "$VALIDCHECK" != "flashcast-autoupdate" ]] ; then
+		log "Unable to pull update information! Exiting..."
+		exit 0
+	fi
 
 	if grep -q "$CURRENTVER" <<< "$LATESTVER" ; then
 		log "No Update needed, exiting..."
